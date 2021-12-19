@@ -1,0 +1,53 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Serif TC", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.underline-link {
+  display: inline-flex;
+  transition: text-shadow 0.2s;
+  cursor: pointer;
+  &:hover {
+    text-shadow: 0px 0px 24px var(--secondary-light);
+  }
+  span {
+    text-decoration: underline;
+  }
+}
+
+/* =====================
+Width
+========================== */
+@for $i from 1 through 40 {
+  .w-#{$i * 4} {
+    width: $i * 4px;
+  }
+}
+
+@for $o from 1 through 20 {
+  .w-#{$o *5}p {
+    width: $o * 5%;
+  }
+}
+
+/* =====================
+Height
+========================== */
+@for $i from 1 through 40 {
+  .h-#{$i * 4} {
+    height: $i * 4px;
+  }
+}
+
+@for $o from 1 through 20 {
+  .h-#{$o *5}p {
+    height: $o * 5%;
+  }
+}

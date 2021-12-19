@@ -1,0 +1,19 @@
+#app {
+  // Form
+  .el-form-item {
+    margin: 0;
+  }
+  .el-form-item__label {
+    font-size: 20px;
+    line-height: 1;
+    padding: 0 0 10px 0;
+  }
+
+  .el-input__inner {
+    font-size: 20px;
+    height: auto;
+    line-height: 46px;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+  }
+}

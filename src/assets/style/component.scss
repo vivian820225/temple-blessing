@@ -1,0 +1,38 @@
+// Button
+.btn {
+  display: block;
+  padding: 4px 48px;
+  color: #fff;
+  font-size: 28px;
+  text-align: center;
+  line-height: 40px;
+  white-space: nowrap;
+  border-radius: 12px;
+  box-shadow: 0 0 16px var(--secondary-light);
+  transition: all 0.2s;
+  &-primary {
+    @extend .btn;
+    background-color: var(--secondary);
+    &:hover {
+      background-color: var(--primary);
+      box-shadow: 0 0 48px var(--secondary-light);
+    }
+  }
+  &-xl {
+    padding: 12px 48px;
+  }
+  &-sm {
+    font-size: 20px;
+  }
+}
+
+// Icon
+.icon-arrow-w {
+  display: block;
+  border-left: 4px solid #fff;
+  border-top: 4px solid #fff;
+  &-left {
+    @extend .icon-arrow-w;
+    transform: rotate(-45deg);
+  }
+}

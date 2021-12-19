@@ -1,1 +1,10 @@
-@import './custom.scss'
+:root {
+  --primary: #613400;
+  --secondary: #c78f00;
+  --secondary-light: #ffb800;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap");
+@import "./utilities.scss";
+@import "./component.scss";
+@import "./element-ui.scss";
