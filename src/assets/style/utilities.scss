@@ -40,6 +40,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none;
   }
   &::after {
     content: '';
@@ -54,7 +55,14 @@ body {
     position: absolute;
     bottom: 0;
     right: 8%;
+    pointer-events: none;
   }
+}
+
+.shadow-box {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0px 0px 12px var(--primary);
 }
 
 /* =====================

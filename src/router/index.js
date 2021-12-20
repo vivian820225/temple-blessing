@@ -22,6 +22,16 @@ const routes = [
     path: '/record',
     name: 'Record',
     component: () => import(/* webpackChunkName: 'about' */ '../views/record.vue')
+  },
+  {
+    path: '/check-order',
+    name: 'CheckOrder',
+    component: () => import(/* webpackChunkName: 'about' */ '../views/check-order.vue')
+  },
+  {
+    path: '/finished',
+    name: 'Finished',
+    component: () => import(/* webpackChunkName: 'about' */ '../views/finished.vue')
   }
 ]
 

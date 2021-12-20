@@ -1,7 +1,7 @@
 <template>
   <div class="blessing-layer linear-bg-color">
-    <div class="flex items-center justify-between mb-8">
-      <router-link to="/">
+    <div class="flex items-center justify-between mb-8 select-none">
+      <router-link to="/" class="cursor-pointer">
         <img src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
       </router-link>
       <router-link to="/record" class="btn-solid-w">查看點燈紀錄</router-link>

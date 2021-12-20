@@ -99,6 +99,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none;
   }
   &::after {
     content: '';
@@ -113,6 +114,7 @@ export default {
     position: absolute;
     bottom: 0;
     right: 0;
+    pointer-events: none;
   }
   .login-content {
     width: 60%;
