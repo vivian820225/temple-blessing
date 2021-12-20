@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: "Noto Serif TC", Helvetica, Arial, sans-serif;
+  font-family: 'Noto Serif TC', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,6 +19,41 @@ body {
   }
   span {
     text-decoration: underline;
+  }
+}
+
+.linear-bg-color {
+  background: linear-gradient(210deg, #613400 0%, #a05700 100%);
+  padding: 48px 60px;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 30%;
+    max-width: 362px;
+    height: 680px;
+    background-repeat: no-repeat;
+    background-image: url('~@/assets/images/circle-bg-1.png');
+    background-size: contain;
+    background-position: left top;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 50%;
+    max-width: 540px;
+    height: 268px;
+    background-repeat: no-repeat;
+    background-image: url('~@/assets/images/circle-bg-2.png');
+    background-position: right bottom;
+    background-size: contain;
+    position: absolute;
+    bottom: 0;
+    right: 8%;
   }
 }
 

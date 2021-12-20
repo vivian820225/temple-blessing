@@ -26,6 +26,26 @@
   }
 }
 
+.btn-solid {
+  display: block;
+  padding: 4px 48px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+  border: 1px solid var(--secondary);
+  border-radius: 12px;
+  transition: all 0.2s;
+  &-w {
+    @extend .btn-solid;
+    color: #fff;
+    border-color: #fff;
+    &:hover {
+      border-color: var(--secondary);
+      box-shadow: 0 0 48px var(--secondary-light);
+    }
+  }
+}
+
 // Icon
 .icon-arrow-w {
   display: block;
