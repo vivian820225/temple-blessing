@@ -12,7 +12,7 @@
       >
         謝謝您，祝福您<br />心想事成、萬事順利
       </h2>
-      <router-link to="/record" class="btn-primary mb-8">查看點燈紀錄</router-link>
+      <router-link to="/record" class="btn-primary btn-xl mb-8">查看點燈紀錄</router-link>
       <router-link to="/" class="underline-link text-white text-lg flex items-center">
         <span>返回首頁</span>
       </router-link>

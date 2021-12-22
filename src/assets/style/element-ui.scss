@@ -16,4 +16,150 @@
     border: 1px solid var(--primary);
     border-radius: 8px;
   }
+
+  // Radio
+  .el-radio {
+    display: flex;
+    align-items: center;
+  }
+
+  .el-radio__label {
+    font-size: 20px;
+  }
+
+  .el-radio__inner {
+    width: 20px;
+    height: 20px;
+    &::after {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  .el-radio__input {
+    &.is-checked {
+      .el-radio__inner {
+        border-color: var(--secondary);
+        background: var(--secondary);
+      }
+      + .el-radio__label {
+        color: initial;
+      }
+    }
+  }
+
+  // Checkbox
+  .el-checkbox {
+    display: flex;
+    align-items: center;
+  }
+  .el-checkbox__inner {
+    width: 20px;
+    height: 20px;
+    &::after {
+      width: 5px;
+      height: 10px;
+      top: 0;
+      left: 5px;
+      border: 3px solid #fff;
+      border-left: 0;
+      border-top: 0;
+    }
+  }
+  .el-checkbox__input {
+    &.is-checked {
+      + .el-checkbox__label {
+        color: inherit;
+      }
+
+      .el-checkbox__inner {
+        background-color: var(--secondary);
+        border-color: var(--secondary);
+      }
+    }
+  }
+
+  // InputNumber
+  .el-input-number__decrease,
+  .el-input-number__increase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    bottom: 1px;
+    color: #fff;
+    font-size: 16px;
+    background-color: var(--primary);
+
+    &.is-disabled {
+      opacity: 0.5;
+    }
+  }
+
+  // Dialog
+  .el-dialog {
+    border-radius: 16px;
+  }
+
+  .el-dialog__body {
+    padding: 0;
+  }
+
+  .el-dialog__headerbtn {
+    font-size: 32px;
+    z-index: 1;
+
+    &:hover,
+    &:focus {
+      .el-dialog__close {
+        color: var(--secondary);
+      }
+    }
+
+    .el-dialog__close {
+      font-weight: bold;
+    }
+  }
+}
+
+// MessageBox
+.el-message-box {
+  border-radius: 16px;
+}
+
+.el-message-box__headerbtn {
+  font-size: 24px;
+  .el-dialog__close {
+    font-weight: bold;
+  }
+}
+
+.el-message-box__message {
+  p {
+    font-size: 18px;
+    text-align: center;
+    padding: 24px 0 8px 0;
+  }
+}
+
+.el-message-box__btns {
+  padding-bottom: 8px;
+  button {
+    font-size: 16px;
+    border-radius: 8px;
+    &:hover {
+      color: var(--secondary);
+      border-color: var(--secondary);
+      background-color: initial;
+    }
+    &:nth-child(2) {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      &:hover {
+        color: #fff;
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+    }
+  }
 }

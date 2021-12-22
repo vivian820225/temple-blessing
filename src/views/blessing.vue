@@ -28,12 +28,8 @@
         </swiper>
       </div>
     </div>
-    <Dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-        <button @click="dialogVisible = false">取 消</button>
-        <button type="primary" @click="dialogVisible = false">确 定</button>
-      </span>
+    <Dialog title="" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
+      <LightModal :light-info="currentLight" />
     </Dialog>
   </div>
 </template>
@@ -42,24 +38,32 @@
 import { Dialog } from 'element-ui'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import LightModal from '@/components/LightModal'
+
 export default {
   name: 'Blessing',
   components: {
     Swiper,
     SwiperSlide,
-    Dialog
+    Dialog,
+    LightModal
   },
   data () {
     return {
+      currentLight: {},
       lightCategory: [
         {
           title: '財運亨通',
           list: [
             {
-              name: '財神燈'
+              name: '財神燈',
+              hasCompany: true,
+              price: 600
             },
             {
-              name: '財寶神衣燈'
+              name: '財寶神衣燈',
+              hasCompany: true,
+              price: 800
             }
           ]
         },
@@ -67,13 +71,19 @@ export default {
           title: '平安健康',
           list: [
             {
-              name: '太歲燈'
+              name: '太歲燈',
+              hasCompany: false,
+              price: 500
             },
             {
-              name: '光明燈'
+              name: '光明燈',
+              hasCompany: false,
+              price: 500
             },
             {
-              name: '健康燈'
+              name: '健康燈',
+              hasCompany: false,
+              price: 500
             }
           ]
         },
@@ -81,7 +91,9 @@ export default {
           title: '學運智慧',
           list: [
             {
-              name: '文昌燈'
+              name: '文昌燈',
+              hasCompany: false,
+              price: 300
             }
           ]
         }
@@ -105,11 +117,14 @@ export default {
   },
   methods: {
     openModal (item) {
+      this.currentLight = item
       this.dialogVisible = true
-      console.log('light', item)
     },
     handleClose (done) {
-      this.$confirm('确认关闭？')
+      this.$confirm('請問確定取消嗎？', {
+        confirmButtonText: '確認',
+        cancelButtonText: '返回'
+      })
         .then((_) => {
           done()
         })

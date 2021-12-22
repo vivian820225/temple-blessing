@@ -29,7 +29,7 @@
               <FormItem label="驗證碼" class="flex-auto">
                 <Input v-model="form.phone" placeholder="請輸入簡訊驗證碼" />
               </FormItem>
-              <button class="btn-primary btn-sm ml-2" @click="onSubmit">送出</button>
+              <button class="btn-primary btn-sm ml-2" @click.prevent="onSubmit">送出</button>
             </div>
             <p class="mb-20 text-white">
               沒有收到簡訊？
@@ -75,8 +75,8 @@ export default {
       console.log('getCode!')
     },
     onSubmit () {
-      this.$router.push('/blessing')
       console.log('submit!')
+      this.$router.push('/blessing')
     }
   }
 }
