@@ -120,6 +120,23 @@
       font-weight: bold;
     }
   }
+
+  // Pagination
+  .el-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+  }
+
+  .el-pager {
+    li {
+      font-size: 16px;
+      height: auto;
+      &.active {
+        background-color: var(--secondary);
+      }
+    }
+  }
 }
 
 // MessageBox
