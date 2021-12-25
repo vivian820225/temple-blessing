@@ -25,7 +25,9 @@
           <TableColumn prop="state" label="狀態" width="180" align="center"> </TableColumn>
           <TableColumn label="詳情" width="180" align="center">
             <template slot-scope="scope">
-              <button class="btn-record-detail" @click.prevent="openDetail(scope)">詳細資料</button>
+              <button class="btn-record-detail" @click.prevent="openDetail(scope.row)">
+                詳細資料
+              </button>
             </template>
           </TableColumn>
         </Table>
@@ -57,7 +59,7 @@ export default {
           birthday: '2000-01-12',
           address: ' 陶珠隱園市陶珠隱園路陶珠隱園巷87號87樓',
           account: 56753,
-          state: '尚未匯款',
+          state: '已付款',
           payment: 'transform',
           checkedDate: '2021/11/10 08:59'
         },
@@ -71,6 +73,19 @@ export default {
           address: ' 陶珠隱園市陶珠隱園路陶珠隱園巷87號87樓',
           account: 12753,
           state: '尚未匯款',
+          payment: 'transform',
+          checkedDate: '2021/12/20 08:59'
+        },
+        {
+          date: '2021/12/19 12:40',
+          name: '巧克力',
+          type: '光明燈',
+          price: 500,
+          phone: '0987383383',
+          birthday: '1999-07-28',
+          address: ' 陶珠隱園市陶珠隱園路陶珠隱園巷87號87樓',
+          account: 12753,
+          state: '已取消',
           payment: 'transform',
           checkedDate: '2021/12/20 08:59'
         }
