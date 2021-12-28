@@ -46,6 +46,40 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .btn {
+    font-size: 20px;
+    padding: 4px 24px;
+    &-xl {
+      padding: 6px 32px;
+    }
+    &-sm {
+      font-size: 18px;
+    }
+  }
+
+  .btn-solid {
+    font-size: 18px;
+    padding: 4px 24px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .btn {
+    font-size: 16px;
+    padding: 0 16px;
+    border-radius: 8px;
+    &-xl {
+      padding: 4px 24px;
+    }
+  }
+
+  .btn-solid {
+    font-size: 16px;
+    padding: 0 8px;
+  }
+}
+
 // Icon
 .icon-arrow-w {
   display: block;
@@ -54,5 +88,49 @@
   &-left {
     @extend .icon-arrow-w;
     transform: rotate(-45deg);
+  }
+}
+
+// Slider
+.swiper {
+  .swiper-button-next:after,
+  .swiper-container-rtl .swiper-button-prev:after,
+  .swiper-button-prev:after,
+  .swiper-container-rtl .swiper-button-next:after {
+    color: #d1d1d1;
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .swiper-button-next,
+  .swiper-container-rtl .swiper-button-prev {
+    right: 24px;
+  }
+
+  .swiper-button-prev,
+  .swiper-container-rtl .swiper-button-next {
+    left: 24px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .swiper {
+    .swiper-button-next:after,
+    .swiper-container-rtl .swiper-button-prev:after,
+    .swiper-button-prev:after,
+    .swiper-container-rtl .swiper-button-next:after {
+      font-size: 28px;
+      display: block;
+    }
+
+    .swiper-button-next,
+    .swiper-container-rtl .swiper-button-prev {
+      right: 16px;
+    }
+
+    .swiper-button-prev,
+    .swiper-container-rtl .swiper-button-next {
+      left: 16px;
+    }
   }
 }

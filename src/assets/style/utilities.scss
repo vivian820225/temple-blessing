@@ -59,6 +59,30 @@ body {
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .linear-bg-color {
+    padding: 24px;
+    &::before {
+      height: 480px;
+    }
+    &::after {
+      height: 200px;
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .linear-bg-color {
+    padding: 24px 16px;
+    &::before {
+      height: 320px;
+    }
+    &::after {
+      height: 120px;
+    }
+  }
+}
+
 .shadow-box {
   background-color: #fff;
   border-radius: 16px;
@@ -73,6 +97,22 @@ body {
   height: 2px;
   border: none;
   background-color: var(--secondary);
+}
+
+.logo-w {
+  max-height: 64px;
+}
+
+@media screen and (max-width: 1024px) {
+  .logo-w {
+    max-height: 48px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .logo-w {
+    max-height: 32px;
+  }
 }
 
 /* =====================

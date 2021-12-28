@@ -1,11 +1,13 @@
 <template>
-  <div class="login-layer flex">
+  <div class="login-layer">
     <div class="login-cover">
       <img src="@/assets/images/login-img.jpg" alt="登入點燈系統" />
     </div>
     <div class="login-container flex-auto flex items-center justify-center">
       <div class="login-content flex flex-col">
-        <h2 class="text-5xl text-secondary font-bold mb-10">歡迎祈福、感恩</h2>
+        <h2 class="lg:text-5xl md:text-4xl text-3xl text-secondary font-bold mb-10">
+          歡迎祈福、感恩
+        </h2>
         <Form ref="form" :model="form" label-position="top">
           <template v-if="isFirstStep">
             <div class="mb-6">
@@ -13,13 +15,16 @@
                 <Input v-model="form.name" placeholder="請輸入您的姓名" />
               </FormItem>
             </div>
-            <div class="flex items-end mb-20">
+            <div class="flex items-end md:mb-20 mb-10">
               <FormItem label="行動電話" class="flex-auto">
                 <Input v-model="form.phone" placeholder="請輸入行動電話" />
               </FormItem>
               <button class="btn-primary btn-sm ml-2" @click="getCode">發送簡訊驗證碼</button>
             </div>
-            <router-link to="/" class="underline-link text-white text-lg flex items-center">
+            <router-link
+              to="/"
+              class="underline-link text-white md:text-lg text-base flex items-center"
+            >
               <i class="w-16 h-16 icon-arrow-w-left mr-2"></i>
               <span>返回首頁</span>
             </router-link>
@@ -31,7 +36,7 @@
               </FormItem>
               <button class="btn-primary btn-sm ml-2" @click.prevent="onSubmit">送出</button>
             </div>
-            <p class="mb-20 text-white">
+            <p class="md:mb-20 mb-10 text-white">
               沒有收到簡訊？
               <a @click="getCode" class="underline-link">
                 <span>重新發送</span>
@@ -39,7 +44,7 @@
             </p>
             <a
               @click.prevent="isFirstStep = true"
-              class="underline-link text-white text-lg flex items-center"
+              class="underline-link text-white md:text-lg text-base flex items-center"
             >
               <i class="w-16 h-16 icon-arrow-w-left mr-2"></i>
               <span>返回上一步</span>
@@ -83,6 +88,9 @@ export default {
 </script>
 
 <style lang="scss">
+.login-layer {
+  display: flex;
+}
 .login-container {
   position: relative;
   background: linear-gradient(227deg, #613400 0%, #a05700 100%);
@@ -122,6 +130,44 @@ export default {
     z-index: 1;
     .el-form-item__label {
       color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .login-layer {
+    flex-direction: column;
+  }
+
+  .login-cover {
+    height: 120px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .login-container {
+    &::before {
+      height: 480px;
+    }
+    &::after {
+      height: 200px;
+    }
+    .login-content {
+      width: calc(100% - 32px);
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .login-container {
+    &::before {
+      height: 320px;
+    }
+    &::after {
+      height: 120px;
     }
   }
 }

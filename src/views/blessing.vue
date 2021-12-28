@@ -1,15 +1,17 @@
 <template>
   <div class="blessing-layer linear-bg-color">
-    <div class="flex items-center justify-between mb-8 select-none">
+    <div class="flex items-center justify-between md:mb-8 mb-4 select-none">
       <router-link to="/" class="cursor-pointer">
-        <img src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
+        <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
       </router-link>
-      <router-link to="/record" class="btn-solid-w">查看點燈紀錄</router-link>
+      <router-link to="/record" class="btn-solid-w whitespace-nowrap"
+        ><span class="sm:inline-block hidden">查看</span>點燈紀錄</router-link
+      >
     </div>
     <div class="blessing-container">
       <h2 class="blessing-title">請選擇類型</h2>
       <div class="blessing-list-wrapper">
-        <swiper ref="lightSwiper" class="swiper" :options="swiperOption">
+        <Swiper ref="lightSwiper" class="swiper" :options="swiperOption">
           <SwiperSlide v-for="(category, index) in lightCategory" :key="index">
             <div class="light-card">
               <h3 class="light-card-title">{{ category.title }}</h3>
@@ -25,10 +27,12 @@
               </ul>
             </div>
           </SwiperSlide>
-        </swiper>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </Swiper>
       </div>
     </div>
-    <Dialog title="" :visible.sync="dialogVisible" width="50%" :before-close="handleClose">
+    <Dialog title="" :visible.sync="dialogVisible" class="dialog-style" :before-close="handleClose">
       <LightModal :light-info="currentLight" />
     </Dialog>
   </div>
@@ -110,6 +114,10 @@ export default {
           depth: 100,
           modifier: 1,
           slideShadows: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         }
       },
       dialogVisible: false
@@ -135,6 +143,10 @@ export default {
 </script>
 
 <style lang="scss">
+.blessing-layer {
+  display: flex;
+  flex-direction: column;
+}
 .blessing-title {
   display: flex;
   flex-direction: column;
@@ -154,6 +166,10 @@ export default {
     border-width: 24px 18px 0 18px;
     border-color: var(--secondary) transparent transparent transparent;
   }
+}
+
+.blessing-container {
+  flex: 1;
 }
 
 .blessing-list-wrapper {
@@ -187,35 +203,87 @@ export default {
   .light-card {
     position: relative;
     user-select: none;
+  }
+  .light-card-title {
+    padding: 8px 48px;
+    color: #fff;
+    background-color: var(--secondary);
+    border-radius: 48px;
+    position: relative;
+    margin-bottom: 16px;
+    font-size: 32px;
+  }
+  .light-card-body {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+  }
+  .light-card-item {
+    color: var(--primary);
+    font-size: 36px;
+    cursor: pointer;
 
-    .light-card-title {
-      padding: 8px 48px;
-      color: #fff;
-      background-color: var(--secondary);
-      border-radius: 48px;
-      position: relative;
-      margin-bottom: 16px;
+    &:not(:last-of-type) {
+      margin-bottom: 24px;
     }
-    .light-card-body {
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 16px;
+
+    &:hover,
+    &:focus {
+      text-shadow: 0 0 24px var(--secondary-light);
+      background-image: url('~@/assets/images/light-bg.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .blessing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .blessing-title {
+    font-size: 28px;
+    &::after {
+      margin-top: 12px;
+      border-width: 18px 12px 0 12px;
+    }
+  }
+
+  .blessing-list-wrapper {
+    padding: 24px 0;
+    .light-card-title {
+      font-size: 28px;
     }
     .light-card-item {
-      color: var(--primary);
-      cursor: pointer;
+      font-size: 30px;
+    }
+  }
+}
 
-      &:not(:last-of-type) {
-        margin-bottom: 24px;
+@media screen and (max-width: 520px) {
+  .blessing-title {
+    font-size: 24px;
+  }
+
+  .blessing-list-wrapper {
+    padding: 16px 0;
+    .swiper {
+      .swiper-slide {
+        min-height: 240px;
       }
-
-      &:hover,
-      &:focus {
-        text-shadow: 0 0 24px var(--secondary-light);
-        background-image: url('~@/assets/images/light-bg.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
+    }
+    .light-card-title {
+      font-size: 20px;
+    }
+    .light-card-item {
+      font-size: 24px;
+      &:not(:last-of-type) {
+        margin-bottom: 20px;
       }
     }
   }

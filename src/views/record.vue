@@ -1,32 +1,37 @@
 <template>
   <div class="record-layer linear-bg-color">
-    <div class="flex items-center justify-between mb-8 select-none">
+    <div class="flex items-center justify-between md:mb-8 mb-4 select-none">
       <router-link to="/" class="cursor-pointer">
-        <img src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
+        <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
       </router-link>
-      <router-link to="/blessing" class="btn-solid-w">返回點燈列表</router-link>
+      <router-link to="/blessing" class="btn-solid-w whitespace-nowrap">
+        <span class="sm:inline-block hidden">返回</span>點燈列表
+      </router-link>
     </div>
     <div class="flex flex-col record-container">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl text-white font-bold">我的點燈紀錄</h2>
-        <p class="text-lg text-white">收款帳號: 012 - 420168274996</p>
+      <div class="md:flex items-center justify-between md:mb-6 mb-2">
+        <h2 class="md:text-2xl text-xl text-white font-bold whitespace-nowrap">我的點燈紀錄</h2>
+        <p class="md:text-lg text-sm text-white whitespace-nowrap">收款帳號: 012 - 420168274996</p>
       </div>
       <div class="shadow-box">
-        <Table :data="tableData" height="480" class="record-table" border stripe>
+        <Table :data="tableData" height="400" class="record-table" border stripe>
           <TableColumn prop="date" label="點燈時間" align="center"> </TableColumn>
           <TableColumn prop="type" label="燈種" align="center"> </TableColumn>
-          <TableColumn label="金額" width="180" align="center">
+          <TableColumn label="金額" align="center">
             <template slot-scope="scope">
               <span>${{ scope.row.price }}</span>
             </template>
           </TableColumn>
-          <TableColumn prop="account" label="匯款帳號後五碼" width="200" align="center">
-          </TableColumn>
-          <TableColumn prop="state" label="狀態" width="180" align="center"> </TableColumn>
-          <TableColumn label="詳情" width="180" align="center">
+          <TableColumn prop="account" label="匯款帳號後五碼" align="center"> </TableColumn>
+          <TableColumn prop="state" label="狀態" align="center"> </TableColumn>
+          <TableColumn label="詳情" align="center" width="120" fixed="right">
             <template slot-scope="scope">
-              <button class="btn-record-detail" @click.prevent="openDetail(scope.row)">
-                詳細資料
+              <button
+                class="btn-record-detail whitespace-nowrap"
+                @click.prevent="openDetail(scope.row)"
+              >
+                <span class="md:inline-block hidden">詳細資料</span>
+                <span class="md:hidden inline-block">詳情</span>
               </button>
             </template>
           </TableColumn>
@@ -34,7 +39,7 @@
         <Pagination background layout="prev, pager, next" :total="pageTotal"> </Pagination>
       </div>
     </div>
-    <Dialog title="" :visible.sync="dialogVisible" width="50%">
+    <Dialog title="" :visible.sync="dialogVisible" class="dialog-style">
       <OrderDetail :order-info="order" />
     </Dialog>
   </div>
@@ -122,6 +127,12 @@ export default {
       color: #fff;
       background-color: var(--primary);
     }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .record-container {
+    width: 100%;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="order-detail" v-if="Object.keys(orderInfo).length">
-    <h2 class="text-2xl mb-4 border-b pb-4">訂單詳情</h2>
-    <div class="flex items-start justify-between">
+    <h2 class="md:text-2xl text-xl md:mb-4 mb-2 border-b md:pb-4 pb-2">訂單詳情</h2>
+    <div class="md:flex items-start justify-between">
       <div class="flex flex-col">
         <p>祈福者：{{ orderInfo.name }}</p>
         <p>點燈時間：{{ orderInfo.date }}</p>
@@ -53,6 +53,7 @@ export default {
     border: 1px solid;
     padding: 8px 16px;
     border-radius: 8px;
+    text-align: center;
     &.checked {
       color: rgb(64, 202, 0);
       border-color: rgb(64, 202, 0);
@@ -64,6 +65,22 @@ export default {
     &.failed {
       color: rgb(216, 0, 0);
       border-color: rgb(216, 0, 0);
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .order-detail {
+    padding: 24px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .order-detail {
+    padding: 0 16px 4px 16px;
+    p {
+      font-size: 16px;
+      margin-bottom: 12px;
     }
   }
 }
