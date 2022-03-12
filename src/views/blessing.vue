@@ -43,6 +43,7 @@ import { Dialog } from 'element-ui'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 import LightModal from '@/components/LightModal'
+import Tools from '@/utils/tools.js'
 
 export default {
   name: 'Blessing',
@@ -129,14 +130,12 @@ export default {
       this.dialogVisible = true
     },
     handleClose (done) {
-      this.$confirm('請問確定取消嗎？', {
-        confirmButtonText: '確認',
-        cancelButtonText: '返回'
+      Tools.confirmBox({
+        message: '確定取消嗎？',
+        confirm: () => {
+          // Call API
+        }
       })
-        .then((_) => {
-          done()
-        })
-        .catch((_) => {})
     }
   }
 }

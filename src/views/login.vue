@@ -19,7 +19,7 @@
               <FormItem label="行動電話" class="flex-auto">
                 <Input v-model="form.phone" placeholder="請輸入行動電話" />
               </FormItem>
-              <button class="btn-primary btn-sm ml-2" @click="getCode">發送簡訊驗證碼</button>
+              <button class="btn-primary btn-sm ml-2" @click="getSMSCode">發送簡訊驗證碼</button>
             </div>
             <router-link
               to="/"
@@ -38,7 +38,7 @@
             </div>
             <p class="md:mb-20 mb-10 text-white">
               沒有收到簡訊？
-              <a @click="getCode" class="underline-link">
+              <a @click="getSMSCode" class="underline-link">
                 <span>重新發送</span>
               </a>
             </p>
@@ -58,6 +58,8 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
+import Tools from '@/utils/tools.js'
+import Auth from '@/api/auth'
 export default {
   name: 'Login',
   components: {
@@ -71,17 +73,42 @@ export default {
       form: {
         name: '',
         phone: ''
-      }
+      },
+      verificationCode: ''
     }
   },
   methods: {
-    getCode () {
+    getSMSCode () {
       this.isFirstStep = false
-      console.log('getCode!')
+      const param = {
+        templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
+        phoneNumber: '0982711806'
+      }
+      Auth.SmsCodeLogin(param).then((res) => {
+        console.log('SmsCodeLogin', res)
+        if (res) {
+          this.verificationCode = res.message
+          // localStorage.setItem('access_token', res.message)
+        }
+      })
     },
     onSubmit () {
       console.log('submit!')
-      this.$router.push('/blessing')
+      const param = {
+        templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
+        phoneNumber: '0982711806',
+        verificationCode: this.verificationCode
+      }
+      Auth.VerifySmsCode(param).then((res) => {
+        console.log('VerifySmsCode', res)
+        if (res) {
+          localStorage.setItem('access_token', res.token)
+          if (res.token) {
+            Tools.successTips('登入成功')
+            this.$router.push('/blessing')
+          }
+        }
+      })
     }
   }
 }
