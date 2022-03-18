@@ -19,7 +19,7 @@
               <FormItem label="行動電話" class="flex-auto">
                 <Input v-model="form.phone" placeholder="請輸入行動電話" />
               </FormItem>
-              <button class="btn-primary btn-sm ml-2" @click="getSMSCode">發送簡訊驗證碼</button>
+              <button class="btn-primary btn-sm ml-2" @click.prevent="getSMSCode">發送簡訊驗證碼</button>
             </div>
             <router-link
               to="/"
@@ -38,7 +38,7 @@
             </div>
             <p class="md:mb-20 mb-10 text-white">
               沒有收到簡訊？
-              <a @click="getSMSCode" class="underline-link">
+              <a @click.prevent="getSMSCode" class="underline-link">
                 <span>重新發送</span>
               </a>
             </p>
@@ -73,22 +73,18 @@ export default {
       form: {
         name: '',
         phone: ''
-      },
-      verificationCode: ''
+      }
     }
   },
   methods: {
     getSMSCode () {
-      this.isFirstStep = false
       const param = {
         templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
-        phoneNumber: '0982711806'
+        phoneNumber: '0916800862'
       }
       Auth.SmsCodeLogin(param).then((res) => {
-        console.log('SmsCodeLogin', res)
         if (res) {
-          this.verificationCode = res.message
-          // localStorage.setItem('access_token', res.message)
+          this.isFirstStep = false
         }
       })
     },
@@ -96,8 +92,8 @@ export default {
       console.log('submit!')
       const param = {
         templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
-        phoneNumber: '0982711806',
-        verificationCode: this.verificationCode
+        phoneNumber: '0916800862',
+        verificationCode: '994122'
       }
       Auth.VerifySmsCode(param).then((res) => {
         console.log('VerifySmsCode', res)

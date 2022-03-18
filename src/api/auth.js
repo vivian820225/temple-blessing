@@ -11,8 +11,8 @@ const Auth = {
   VerifySmsCode (data) {
     return axios({
       url: '/auth/verifyCode',
-      method: 'get',
-      params: data
+      method: 'post',
+      data
     })
   }
 }
