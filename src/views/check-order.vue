@@ -4,9 +4,12 @@
       <router-link to="/" class="cursor-pointer">
         <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
       </router-link>
-      <router-link to="/record" class="btn-solid-w whitespace-nowrap"
-        ><span class="sm:inline-block hidden">查看</span>點燈紀錄</router-link
-      >
+      <div class="flex items-center justify-end">
+        <router-link to="/record" class="btn-solid-w whitespace-nowrap">
+        <span class="sm:inline-block hidden">查看</span>點燈紀錄
+        </router-link>
+        <p class="text-xl text-white ml-4 cursor-pointer" @click="logout">登出</p>
+      </div>
     </div>
     <div class="flex flex-col">
       <h2 class="lg:text-3xl md:text-2xl text-xl text-center text-white font-bold md:mb-8 mb-4">
@@ -51,6 +54,10 @@ export default {
     onSubmit () {
       console.log('submit!')
       this.$router.push('/finished')
+    },
+    logout () {
+      localStorage.removeItem('access_token')
+      this.$router.push({ path: '/login' })
     }
   }
 }

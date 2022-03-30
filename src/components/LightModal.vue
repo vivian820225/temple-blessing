@@ -1,13 +1,13 @@
 <template>
-  <div class="light-modal" v-if="Object.keys(lightInfo).length">
+  <div class="light-modal" v-if="Object.keys(info).length">
     <div class="light-title-wrapper lg:mb-8 mb-4">
-      <h2 class="light-title mb-2">{{ lightInfo.name }}</h2>
+      <h2 class="light-title mb-2">{{ info.name }}</h2>
       <p class="text-base text-secondary">
         在中國民間信仰上，在春節正月期間，為自己點光明燈，有「照耀前途」的意義。
       </p>
     </div>
     <Form ref="form" :model="form" label-position="top" class="light-modal-body">
-      <template v-if="lightInfo.hasCompany">
+      <template v-if="info.hasCompany">
         <div class="flex md:mb-6 mb-4">
           <Radio v-model="form.hasCompany" :label="true">我有公司行號</Radio>
           <Radio v-model="form.hasCompany" :label="false">無公司行號</Radio>
@@ -40,7 +40,7 @@
       <div class="flex items-center md:mb-6 mb-4">
         <InputNumber v-model="form.unit" @change="handleChange" :min="1" :max="10" label="盞" />
         <p class="text-lg ml-4 flex items-center whitespace-nowrap">
-          盞 x <span class="lg:text-2xl text-xl font-bold ml-2"> {{ lightInfo.price }} 元</span>
+          盞 x <span class="lg:text-2xl text-xl font-bold ml-2"> {{ info.price }} 元</span>
         </p>
       </div>
       <Checkbox v-model="form.checked" class="mb-8">
@@ -59,7 +59,7 @@ export default {
   name: 'LightModal',
   components: { Form, FormItem, Input, InputNumber, Radio, DatePicker, Checkbox },
   props: {
-    lightInfo: {
+    info: {
       type: Object,
       default: () => {
         return {}

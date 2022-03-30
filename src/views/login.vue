@@ -32,7 +32,7 @@
           <template v-else>
             <div class="flex items-end mb-2">
               <FormItem label="驗證碼" class="flex-auto">
-                <Input v-model="form.phone" placeholder="請輸入簡訊驗證碼" />
+                <Input v-model="form.code" placeholder="請輸入簡訊驗證碼" />
               </FormItem>
               <button class="btn-primary btn-sm ml-2" @click.prevent="onSubmit">送出</button>
             </div>
@@ -72,7 +72,8 @@ export default {
       isFirstStep: true,
       form: {
         name: '',
-        phone: ''
+        phone: '',
+        code: ''
       }
     }
   },
@@ -80,7 +81,7 @@ export default {
     getSMSCode () {
       const param = {
         templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
-        phoneNumber: '0916800862'
+        phoneNumber: this.form.phone
       }
       Auth.SmsCodeLogin(param).then((res) => {
         if (res) {
@@ -92,8 +93,8 @@ export default {
       console.log('submit!')
       const param = {
         templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
-        phoneNumber: '0916800862',
-        verificationCode: '994122'
+        phoneNumber: this.form.phone,
+        verificationCode: this.form.code
       }
       Auth.VerifySmsCode(param).then((res) => {
         console.log('VerifySmsCode', res)

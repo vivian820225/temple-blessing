@@ -4,21 +4,24 @@
       <router-link to="/" class="cursor-pointer">
         <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
       </router-link>
-      <router-link to="/record" class="btn-solid-w whitespace-nowrap"
-        ><span class="sm:inline-block hidden">查看</span>點燈紀錄</router-link
-      >
+      <div class="flex items-center justify-end">
+        <router-link to="/record" class="btn-solid-w whitespace-nowrap">
+          <span class="sm:inline-block hidden">查看</span>點燈紀錄
+        </router-link>
+        <p class="text-xl text-white ml-4 cursor-pointer" @click="logout">登出</p>
+      </div>
     </div>
     <div class="blessing-container">
       <h2 class="blessing-title">請選擇類型</h2>
       <div class="blessing-list-wrapper">
         <Swiper ref="lightSwiper" class="swiper" :options="swiperOption">
-          <SwiperSlide v-for="(category, index) in lightCategory" :key="index">
+          <SwiperSlide v-for="(category, index) in candleTypeGroup" :key="index">
             <div class="light-card">
-              <h3 class="light-card-title">{{ category.title }}</h3>
+              <h3 class="light-card-title">{{ category.typeName }}</h3>
               <ul class="light-card-body">
                 <li
                   class="light-card-item"
-                  v-for="(light, lightIndex) in category.list"
+                  v-for="(light, lightIndex) in category.candleList"
                   :key="lightIndex"
                   @click="openModal(light)"
                 >
@@ -33,7 +36,7 @@
       </div>
     </div>
     <Dialog title="" :visible.sync="dialogVisible" class="dialog-style" :before-close="handleClose">
-      <LightModal :light-info="currentLight" />
+      <LightModal :info="candleInfo" />
     </Dialog>
   </div>
 </template>
@@ -44,6 +47,8 @@ import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 import LightModal from '@/components/LightModal'
 import Tools from '@/utils/tools.js'
+import Publish from '@/api/publish.js'
+import { CandleType } from '@/config'
 
 export default {
   name: 'Blessing',
@@ -55,7 +60,8 @@ export default {
   },
   data () {
     return {
-      currentLight: {},
+      candleInfo: {},
+      candleTypes: [],
       lightCategory: [
         {
           title: '財運亨通',
@@ -124,18 +130,58 @@ export default {
       dialogVisible: false
     }
   },
+  computed: {
+    candleTypeGroup () {
+      const list = []
+      const types = new Set(this.candleTypes.map(candle => candle.candle_type))
+
+      types.forEach(type => {
+        const candles = this.candleTypes.filter(candle => candle.candle_type === type)
+        const obj = {
+          type: type,
+          typeName: CandleType[type],
+          candleList: candles
+        }
+
+        list.push(obj)
+      })
+
+      return list
+    }
+  },
+  created () {
+    const templeId = 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218'
+    this.getCandleTypes(templeId)
+  },
   methods: {
+    async getCandleTypes (templeId) {
+      const res = await Publish.fetchCandleTypes(templeId)
+      this.candleTypes = res
+    },
+    async getCandleInfo (candleType) {
+      const templeId = 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218'
+      const res = await Publish.fetchCandleTypes(templeId, candleType)
+      this.candleInfo = res
+    },
     openModal (item) {
-      this.currentLight = item
-      this.dialogVisible = true
+      // this.getCandleInfo(item.candle_type)
+      this.candleInfo = item
+      if (Object.keys(this.candleInfo).length) {
+        this.dialogVisible = true
+      }
     },
     handleClose (done) {
       Tools.confirmBox({
         message: '確定取消嗎？',
         confirm: () => {
           // Call API
+          this.dialogVisible = false
         }
       })
+    },
+    logout () {
+      localStorage.removeItem('access_token')
+      this.$router.push({ path: '/login' })
     }
   }
 }
@@ -202,6 +248,8 @@ export default {
   .light-card {
     position: relative;
     user-select: none;
+    display: flex;
+    flex-direction: column;
   }
   .light-card-title {
     padding: 8px 48px;
@@ -219,7 +267,7 @@ export default {
   }
   .light-card-item {
     color: var(--primary);
-    font-size: 36px;
+    font-size: 28px;
     cursor: pointer;
 
     &:not(:last-of-type) {

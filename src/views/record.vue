@@ -4,9 +4,12 @@
       <router-link to="/" class="cursor-pointer">
         <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
       </router-link>
-      <router-link to="/blessing" class="btn-solid-w whitespace-nowrap">
+      <div class="flex items-center justify-end">
+        <router-link to="/blessing" class="btn-solid-w whitespace-nowrap">
         <span class="sm:inline-block hidden">返回</span>點燈列表
       </router-link>
+        <p class="text-xl text-white ml-4 cursor-pointer" @click="logout">登出</p>
+      </div>
     </div>
     <div class="flex flex-col record-container">
       <div class="md:flex items-center justify-between md:mb-6 mb-2">
@@ -103,6 +106,10 @@ export default {
     openDetail (order) {
       this.order = order
       this.dialogVisible = true
+    },
+    logout () {
+      localStorage.removeItem('access_token')
+      this.$router.push({ path: '/login' })
     }
   }
 }
