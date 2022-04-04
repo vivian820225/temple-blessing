@@ -133,10 +133,10 @@ export default {
   computed: {
     candleTypeGroup () {
       const list = []
-      const types = new Set(this.candleTypes.map(candle => candle.candle_type))
+      const types = new Set(this.candleTypes.map(candle => candle.type))
 
       types.forEach(type => {
-        const candles = this.candleTypes.filter(candle => candle.candle_type === type)
+        const candles = this.candleTypes.filter(candle => candle.type === type)
         const obj = {
           type: type,
           typeName: CandleType[type],
