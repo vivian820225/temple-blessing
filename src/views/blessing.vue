@@ -158,13 +158,13 @@ export default {
       const res = await Publish.fetchCandleTypes(templeId)
       this.candleTypes = res
     },
-    async getCandleInfo (candleType) {
+    async getCandleInfo (typeId) {
       const templeId = 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218'
-      const res = await Publish.fetchCandleTypes(templeId, candleType)
+      const res = await Publish.fetchCandleTypes(templeId, typeId)
       this.candleInfo = res
     },
     openModal (item) {
-      // this.getCandleInfo(item.candle_type)
+      // this.getCandleInfo(item.id)
       this.candleInfo = item
       if (Object.keys(this.candleInfo).length) {
         this.dialogVisible = true

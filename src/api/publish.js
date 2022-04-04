@@ -3,13 +3,13 @@ import axios from '@/utils/axios'
 const Publish = {
   fetchCandleTypes (templeId) {
     return axios({
-      url: `/candle/v1_0/public/candle-type/${templeId}`,
+      url: `/candle/v1_0/candle-type/usr/${templeId}`,
       method: 'get'
     })
   },
-  fetchCandleInfo (templeId, candleType) {
+  fetchCandleInfo (templeId, typeId) {
     return axios({
-      url: `/candle/v1_0/public/candle-type/${templeId}/${candleType}`,
+      url: `/candle/v1_0/candle-type/usr/${templeId}/${typeId}`,
       method: 'get'
     })
   }
