@@ -17,7 +17,7 @@
         <Swiper ref="lightSwiper" class="swiper" :options="swiperOption">
           <SwiperSlide v-for="(category, index) in candleTypeGroup" :key="index">
             <div class="light-card">
-              <h3 class="light-card-title">{{ category.typeName }}</h3>
+              <h3 class="light-card-title">{{ category.type }}</h3>
               <ul class="light-card-body">
                 <li
                   class="light-card-item"
@@ -48,7 +48,6 @@ import 'swiper/css/swiper.css'
 import LightModal from '@/components/LightModal'
 import Tools from '@/utils/tools.js'
 import Publish from '@/api/publish.js'
-import { CandleType } from '@/config'
 
 export default {
   name: 'Blessing',
@@ -133,13 +132,12 @@ export default {
   computed: {
     candleTypeGroup () {
       const list = []
-      const types = new Set(this.candleTypes.map(candle => candle.type))
+      const types = new Set(this.candleTypes.map(candle => candle.category_name))
 
       types.forEach(type => {
-        const candles = this.candleTypes.filter(candle => candle.type === type)
+        const candles = this.candleTypes.filter(candle => candle.category_name === type)
         const obj = {
           type: type,
-          typeName: CandleType[type],
           candleList: candles
         }
 
@@ -158,11 +156,10 @@ export default {
       const res = await Publish.fetchCandleTypes(templeId)
       this.candleTypes = res
     },
-    async getCandleInfo (typeId) {
-      const templeId = 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218'
-      const res = await Publish.fetchCandleTypes(templeId, typeId)
-      this.candleInfo = res
-    },
+    // async getCandleInfo (typeId) {
+    //   const templeId = 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218'
+    //   const res = await Publish.fetchCandleInfo(templeId, typeId)
+    // },
     openModal (item) {
       // this.getCandleInfo(item.id)
       this.candleInfo = item
