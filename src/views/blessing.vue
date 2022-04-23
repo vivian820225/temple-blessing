@@ -148,7 +148,7 @@ export default {
     }
   },
   created () {
-    const templeId = 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218'
+    const templeId = '100c6411-bc6c-11ec-a855-79072977e347'
     this.getCandleTypes(templeId)
   },
   methods: {

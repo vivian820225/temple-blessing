@@ -80,7 +80,7 @@ export default {
   methods: {
     getSMSCode () {
       const param = {
-        templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
+        templeId: '100c6411-bc6c-11ec-a855-79072977e347',
         phoneNumber: this.form.phone
       }
       Auth.SmsCodeLogin(param).then((res) => {
@@ -92,7 +92,7 @@ export default {
     onSubmit () {
       console.log('submit!')
       const param = {
-        templeId: 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218',
+        templeId: '100c6411-bc6c-11ec-a855-79072977e347',
         phoneNumber: this.form.phone,
         verificationCode: this.form.code
       }
