@@ -17,9 +17,21 @@
             </div>
             <div class="flex items-end md:mb-20 mb-10">
               <FormItem label="行動電話" class="flex-auto">
-                <Input v-model="form.phone" placeholder="請輸入行動電話" />
+                <Input
+                ref="phoneInput"
+                v-model="form.phone"
+                maxlength="10"
+                @input="form.phone = form.phone.replace(/[^\d]/g, '')"
+                placeholder="請輸入行動電話"
+                />
               </FormItem>
-              <button class="btn-primary btn-sm ml-2" @click.prevent="getSMSCode">發送簡訊驗證碼</button>
+              <button
+                class="btn-primary btn-sm ml-2"
+                :disabled="!codeBtnUsable"
+                @click.prevent="getSMSCode"
+              >
+              發送簡訊驗證碼
+              </button>
             </div>
             <router-link
               to="/"
@@ -32,9 +44,9 @@
           <template v-else>
             <div class="flex items-end mb-2">
               <FormItem label="驗證碼" class="flex-auto">
-                <Input v-model="form.code" placeholder="請輸入簡訊驗證碼" />
+                <Input ref="codeInput" v-model="form.code" placeholder="請輸入簡訊驗證碼" />
               </FormItem>
-              <button class="btn-primary btn-sm ml-2" @click.prevent="onSubmit">送出</button>
+              <button class="btn-primary btn-sm ml-2" :disabled="!valid"  @click.prevent="onSubmit">送出</button>
             </div>
             <p class="md:mb-20 mb-10 text-white">
               沒有收到簡訊？
@@ -77,35 +89,84 @@ export default {
       }
     }
   },
+  computed: {
+    valid () {
+      if (!this.form.name.length) return false
+      if (!this.form.phone.length) return false
+      if (!this.form.code.length) return false
+
+      return true
+    },
+    codeBtnUsable () {
+      if (!this.form.phone.length) return false
+      return true
+    }
+  },
   methods: {
-    getSMSCode () {
-      const param = {
-        templeId: '100c6411-bc6c-11ec-a855-79072977e347',
-        phoneNumber: this.form.phone
+    validate (inputName) {
+      let rule = ''
+
+      switch (inputName) {
+        case 'phone':
+          rule = new RegExp(/^09\d{8}$/)
+          if (rule.test(this.form.phone)) {
+            return true
+          } else {
+            Tools.errorTips('請輸入正確的手機號碼')
+            this.$refs.phoneInput.focus()
+            return false
+          }
+        case 'code':
+          rule = new RegExp(`^\\d{${6}}$`)
+          if (rule.test(this.form.code)) {
+            return true
+          } else {
+            Tools.errorTips('無效的驗證碼')
+            this.form.code = ''
+            this.$refs.codeInput.focus()
+            return false
+          }
+        default:
+          break
       }
-      Auth.SmsCodeLogin(param).then((res) => {
-        if (res) {
-          this.isFirstStep = false
-        }
-      })
+    },
+    getSMSCode () {
+      if (this.validate('phone')) {
+        const param = { templeId: process.env.VUE_APP_TEMPLE_ID, phoneNumber: this.form.phone }
+        Auth.SmsCodeLogin(param).then((res) => {
+          if (res) {
+            this.isFirstStep = false
+          }
+        })
+      }
     },
     onSubmit () {
-      console.log('submit!')
-      const param = {
-        templeId: '100c6411-bc6c-11ec-a855-79072977e347',
-        phoneNumber: this.form.phone,
-        verificationCode: this.form.code
-      }
-      Auth.VerifySmsCode(param).then((res) => {
-        console.log('VerifySmsCode', res)
-        if (res) {
-          localStorage.setItem('access_token', res.token)
-          if (res.token) {
-            Tools.successTips('登入成功')
-            this.$router.push('/blessing')
-          }
+      if (this.validate('code')) {
+        const param = {
+          templeId: process.env.VUE_APP_TEMPLE_ID,
+          phoneNumber: this.form.phone,
+          verificationCode: this.form.code
         }
-      })
+
+        Auth.VerifySmsCode(param).then((res) => {
+          if (res) {
+            const userInfo = {
+              username: this.form.name,
+              phoneNumber: this.form.phone
+            }
+            localStorage.setItem('access_token', res.token)
+            this.$store.dispatch('setToken', res.token)
+            this.$store.dispatch('setUserInfo', userInfo)
+            if (res.token) {
+              Tools.successTips('登入成功')
+              this.$router.push('/blessing')
+            }
+          }
+        }).catch(() => {
+          this.form.code = ''
+          Tools.errorTips('無效的驗證碼，請重新獲取')
+        })
+      }
     }
   }
 }

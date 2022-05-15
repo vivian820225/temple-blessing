@@ -10,12 +10,19 @@
   border-radius: 12px;
   box-shadow: 0 0 16px var(--secondary-light);
   transition: all 0.2s;
+  &:disabled {
+    opacity: 0.5;
+    box-shadow: initial;
+    cursor: not-allowed;
+  }
   &-primary {
     @extend .btn;
     background-color: var(--secondary);
-    &:hover {
-      background-color: var(--primary);
-      box-shadow: 0 0 48px var(--secondary-light);
+    &:not(:disabled) {
+      &:hover {
+        background-color: var(--primary);
+        box-shadow: 0 0 48px var(--secondary-light);
+      }
     }
   }
   &-xl {

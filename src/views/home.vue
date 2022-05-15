@@ -1,6 +1,6 @@
 <template>
   <div class="home-layer h-full flex flex-col justify-center items-center">
-    <img class="logo" src="@/assets/images/home-logo.png" alt="楊梅玉玄宮" />
+    <img class="logo" src="@/assets/images/home-logo.png" alt="楊梅開基玉玄宮" />
     <hr class="deco-line bg-secondary mt-5 mb-6 mx-auto" />
     <p class="sub-title lg:text-xl text-lg text-center text-white font-bold lg:leading-10">
       來自元宇宙的神祕宮廟<br />

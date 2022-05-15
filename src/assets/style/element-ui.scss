@@ -110,6 +110,12 @@
         border-color: var(--secondary);
       }
     }
+
+    &.is-focus {
+      .el-checkbox__inner {
+        border-color: var(--secondary);
+      }
+    }
   }
 
   // InputNumber

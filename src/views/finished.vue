@@ -2,7 +2,7 @@
   <div class="linear-bg-color flex flex-col">
     <div class="flex items-center justify-between mb-8 select-none">
       <router-link to="/" class="cursor-pointer">
-        <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
+        <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅開基玉玄宮" />
       </router-link>
     </div>
     <div class="flex flex-col items-center justify-center flex-auto">

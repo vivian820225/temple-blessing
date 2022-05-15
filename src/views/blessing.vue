@@ -2,7 +2,7 @@
   <div class="blessing-layer linear-bg-color">
     <div class="flex items-center justify-between md:mb-8 mb-4 select-none">
       <router-link to="/" class="cursor-pointer">
-        <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅玉玄宮" />
+        <img class="logo-w" src="@/assets/images/logo-w.png" alt="楊梅開基玉玄宮" />
       </router-link>
       <div class="flex items-center justify-end">
         <router-link to="/record" class="btn-solid-w whitespace-nowrap">
@@ -61,53 +61,6 @@ export default {
     return {
       candleInfo: {},
       candleTypes: [],
-      lightCategory: [
-        {
-          title: '財運亨通',
-          list: [
-            {
-              name: '財神燈',
-              hasCompany: true,
-              price: 600
-            },
-            {
-              name: '財寶神衣燈',
-              hasCompany: true,
-              price: 800
-            }
-          ]
-        },
-        {
-          title: '平安健康',
-          list: [
-            {
-              name: '太歲燈',
-              hasCompany: false,
-              price: 500
-            },
-            {
-              name: '光明燈',
-              hasCompany: false,
-              price: 500
-            },
-            {
-              name: '健康燈',
-              hasCompany: false,
-              price: 500
-            }
-          ]
-        },
-        {
-          title: '學運智慧',
-          list: [
-            {
-              name: '文昌燈',
-              hasCompany: false,
-              price: 300
-            }
-          ]
-        }
-      ],
       swiperOption: {
         effect: 'coverflow',
         initialSlide: 1,
@@ -148,20 +101,14 @@ export default {
     }
   },
   created () {
-    const templeId = '100c6411-bc6c-11ec-a855-79072977e347'
-    this.getCandleTypes(templeId)
+    this.getCandleTypes()
   },
   methods: {
-    async getCandleTypes (templeId) {
-      const res = await Publish.fetchCandleTypes(templeId)
+    async getCandleTypes () {
+      const res = await Publish.fetchCandleTypes()
       this.candleTypes = res
     },
-    // async getCandleInfo (typeId) {
-    //   const templeId = 'b0b044e7-4b1a-4a63-92f4-e4fc2ace8218'
-    //   const res = await Publish.fetchCandleInfo(templeId, typeId)
-    // },
     openModal (item) {
-      // this.getCandleInfo(item.id)
       this.candleInfo = item
       if (Object.keys(this.candleInfo).length) {
         this.dialogVisible = true
@@ -171,13 +118,12 @@ export default {
       Tools.confirmBox({
         message: '確定取消嗎？',
         confirm: () => {
-          // Call API
           this.dialogVisible = false
         }
       })
     },
     logout () {
-      localStorage.removeItem('access_token')
+      this.$store.dispatch('logout')
       this.$router.push({ path: '/login' })
     }
   }
